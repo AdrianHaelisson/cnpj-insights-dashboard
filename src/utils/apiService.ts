@@ -5,11 +5,8 @@
 
 import { ResultadoCNPJ } from '../types';
 
-// Usa proxy do Vite em desenvolvimento, URL direta em produção
-const API_BASE_URL = import.meta.env.DEV 
-  ? '/api/cnpj' 
-  : 'https://www.receitaws.com.br/v1/cnpj';
-  
+const API_BASE_URL = '/api/cnpj';
+
 const REQUESTS_PER_MINUTE = 3;
 const MINUTE_IN_MS = 60000;
 
@@ -37,7 +34,7 @@ class ApiService {
    */
   async waitForRateLimit(onWait: WaitCallback | null = null): Promise<void> {
     const now = Date.now();
-    
+
     // Remove timestamps com mais de 1 minuto
     this.requestTimestamps = this.requestTimestamps.filter(
       timestamp => now - timestamp < MINUTE_IN_MS
@@ -47,12 +44,12 @@ class ApiService {
     if (this.requestTimestamps.length >= REQUESTS_PER_MINUTE) {
       const oldestRequest = this.requestTimestamps[0];
       const waitTime = MINUTE_IN_MS - (now - oldestRequest) + 100; // +100ms de margem
-      
+
       // Notifica que está aguardando
       if (onWait) {
         onWait(waitTime);
       }
-      
+
       await new Promise(resolve => setTimeout(resolve, waitTime));
       return this.waitForRateLimit(onWait); // Verifica novamente
     }
@@ -66,23 +63,23 @@ class ApiService {
    */
   async consultarCNPJ(cnpj: string, onWait: WaitCallback | null = null): Promise<ResultadoCNPJ> {
     await this.waitForRateLimit(onWait);
-    
+
     try {
       this.requestTimestamps.push(Date.now());
-      
+
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
-      
-      const response = await fetch(`${API_BASE_URL}/${cnpj}`, {
+
+      const response = await fetch(`${API_BASE_URL}?cnpj=${cnpj}`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
         },
         signal: controller.signal
       });
-      
+
       clearTimeout(timeoutId);
-      
+
       if (!response.ok) {
         if (response.status === 429) {
           throw new Error('Limite de requisições excedido. Aguarde alguns minutos.');
@@ -94,18 +91,18 @@ class ApiService {
           throw new Error(`Erro HTTP ${response.status}: ${response.statusText}`);
         }
       }
-      
+
       const data: ResultadoCNPJ = await response.json();
-      
+
       // Verifica se houve erro na API
       if (data.status === 'ERROR') {
         throw new Error(data.message || 'Erro ao consultar CNPJ');
       }
-      
+
       return data;
     } catch (error) {
       console.error(`Erro ao consultar CNPJ ${cnpj}:`, error);
-      
+
       // Mensagens de erro mais amigáveis
       if (error instanceof Error) {
         if (error.name === 'AbortError') {
@@ -127,14 +124,14 @@ class ApiService {
    * @returns Resultados das consultas
    */
   async processarCNPJs(
-    cnpjs: string[], 
+    cnpjs: string[],
     onProgress?: (progress: ProgressInfo) => void
   ): Promise<ProcessResult[]> {
     const resultados: ProcessResult[] = [];
-    
+
     for (let i = 0; i < cnpjs.length; i++) {
       const cnpj = cnpjs[i];
-      
+
       try {
         const dados = await this.consultarCNPJ(cnpj);
         resultados.push({
@@ -149,7 +146,7 @@ class ApiService {
           erro: error instanceof Error ? error.message : 'Erro desconhecido'
         });
       }
-      
+
       // Atualiza progresso
       if (onProgress) {
         onProgress({
@@ -159,7 +156,7 @@ class ApiService {
         });
       }
     }
-    
+
     return resultados;
   }
 }
