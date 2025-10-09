@@ -2,10 +2,7 @@
 
 A modern and professional web application to consult and process company data in bulk using the public ReceitaWS API. This tool was designed to optimize the routine of analyzing multiple companies, providing a rich and interactive interface.
 
-**TODO:** Replace this with a screenshot or GIF of your project!
-![Project Screenshot](https://via.placeholder.com/800x400.png?text=Your+Project+Screenshot)
-
-[**Live Demo (Coming Soon)**](https://your-live-demo-link.com) <!-- TODO: Replace with your live demo link after deploying -->
+<img width="1014" height="883" alt="image" src="https://github.com/user-attachments/assets/ca975ac1-23c0-49bd-9b6f-9febc4b65fbe" />
 
 ---
 
