@@ -2,10 +2,10 @@
 
 A modern and professional web application to consult and process company data in bulk using the public ReceitaWS API. This tool was designed to optimize the routine of analyzing multiple companies, providing a rich and interactive interface.
 
-<img width="1039" height="2425" alt="image" src="https://github.com/user-attachments/assets/c02d56dc-333a-4dcc-846a-390f0c35ecc4" />
+![Gravando 2025-10-09 002855](https://github.com/user-attachments/assets/838a5991-830b-49f5-9f11-d7cde380ff16)
 
 
-**Check it out: https://cnpj-insights-dashboard.vercel.app/**
+[**Vercel App - Check it out**](https://cnpj-insights-dashboard.vercel.app/)
 
 ---
 
