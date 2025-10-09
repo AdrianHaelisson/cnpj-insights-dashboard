@@ -6,10 +6,10 @@ import * as XLSX from 'xlsx';
 export const criarPlanilhaExemplo = (): void => {
   const dadosExemplo: string[][] = [
     ['CNPJ'],
-    ['22.793.294/0001-99'],
-    ['00.000.000/0001-91'],
-    ['11.222.333/0001-81'],
-    ['33.000.167/0001-01']
+    ['00.000.000/0001-91'], // Banco do Brasil
+    ['06.990.590/0001-23'], // Google Brasil
+    ['33.000.167/0001-01'], // Petrobras
+    ['00.623.904/0001-73']  // Magazine Luiza
   ];
 
   const worksheet = XLSX.utils.aoa_to_sheet(dadosExemplo);
