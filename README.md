@@ -1,90 +1,58 @@
 # CNPJ Insights Dashboard
 
-A modern and professional web application to consult and process company data in bulk using the public ReceitaWS API. This tool was designed to optimize the routine of analyzing multiple companies, providing a rich and interactive interface.
+Organize consultas cadastrais em lote a partir de uma planilha de CNPJs. A aplicação acompanha o processamento e permite exportar os resultados, aproximando consulta e análise em uma única interface.
 
-![Gravando 2025-10-09 002855](https://github.com/user-attachments/assets/838a5991-830b-49f5-9f11-d7cde380ff16)
+[Código do projeto](https://github.com/AdrianHaelisson/cnpj-insights-dashboard) · [Demonstrações AH com dados fictícios](https://ah-automacoes-demo.vercel.app/) · [Portfólio](https://haelisson.com.br)
 
+## O fluxo
 
-[**Vercel App - Check it out**](https://cnpj-insights-dashboard.vercel.app/)
+1. Importe uma planilha com os CNPJs que deseja consultar.
+2. Acompanhe o processamento, as esperas e os resultados na interface.
+3. Exporte o resultado parcial ou completo para análise.
 
----
+O objetivo é reunir as consultas em um processo acompanhável, reduzindo a necessidade de organizar respostas manualmente.
 
-## 🚀 Case Study: From Manual Labor to Insightful Dashboards
+## Recursos
 
-### The Challenge
+- Importação de arquivos Excel (`.xlsx`, `.xls`) e CSV.
+- Tratamento de CNPJs com ou sem formatação.
+- Consulta de dados cadastrais pela ReceitaWS.
+- Indicação de progresso, esperas e ocorrências durante o processamento.
+- Persistência de progresso para retomada e exportação dos resultados.
 
-In many back-office and financial departments, there's a recurring need to consult information for a large number of companies (identified by their CNPJ). This process, when done manually, is slow, error-prone, and consumes valuable hours that could be used for more strategic analysis. The challenge was to automate this task in a way that was fast, reliable, and user-friendly for non-technical users.
+A disponibilidade e os limites das consultas dependem do provedor. O projeto não é um serviço oficial da Receita Federal.
 
-### The Solution
+## Stack
 
-The CNPJ Insights Dashboard was developed to tackle this challenge head-on. It's a web application that allows users to upload a spreadsheet with a list of CNPJs and automatically enriches it with public data obtained from the ReceitaWS API.
+React, TypeScript, Vite, Tailwind CSS e `xlsx`. A integração de consulta usa a [ReceitaWS](https://receitaws.com.br/).
 
-The application was built with a focus on user experience and resilience, incorporating advanced features such as:
+## Executar localmente
 
-*   **Checkpoint System:** The application automatically saves the progress, allowing the user to resume from where they left off in case of a browser crash or network interruption.
-*   **Real-time Logs:** A detailed log provides full visibility into the process, showing the status of each query.
-*   **Rate Limiting Handling:** The interface intelligently handles the API's rate limits (3 requests per minute), providing clear feedback to the user about the waiting time.
+Pré-requisitos: Node.js e npm compatíveis com as dependências do projeto.
 
-### The Impact
+```bash
+git clone https://github.com/AdrianHaelisson/cnpj-insights-dashboard.git
+cd cnpj-insights-dashboard
+npm install
+npm run dev
+```
 
-*   **Efficiency:** Reduced the time spent on consulting hundreds of CNPJs from hours to minutes.
-*   **Accuracy:** Eliminated manual data entry errors.
-*   **User Empowerment:** Provided a tool that can be used by anyone in the team, without needing technical knowledge.
+Abra `http://localhost:5173`.
 
----
+Para gerar os arquivos estáticos:
 
-## ✨ Key Features
+```bash
+npm run build
+```
 
-*   **File Upload:** Supports Excel (.xlsx, .xls) and CSV files.
-*   **Automatic CNPJ Formatting:** Handles CNPJs with or without special characters.
-*   **Resilient Processing:** Automatically handles API rate limits and network errors.
-*   **Partial and Complete Download:** Download the results at any time during the process.
-*   **Modern and Responsive UI:** Built with React and Tailwind CSS for a great experience on any device.
+## Publicação
 
----
+O projeto usa Vite e pode ser configurado como aplicação estática. Na Vercel, importe o repositório, confira o preset Vite e o comando de build do `package.json` antes de publicar. Consulte a [documentação Vercel para Vite](https://vercel.com/docs/frameworks/frontend/vite).
 
-## 🛠️ Technologies Used
+## Escopo e dados
 
-*   **Frontend:** React, Vite, TypeScript, Tailwind CSS
-*   **Libraries:** `xlsx` for spreadsheet manipulation.
-*   **API:** [ReceitaWS](https://receitaws.com.br/)
+Esta aplicação consulta um serviço externo. Ela é independente do Hub AH, que apresenta experiências locais com dados fictícios. Use arquivos adequados à finalidade da consulta e não versione planilhas operacionais ou respostas com dados de clientes.
 
----
+## Licença
 
-## 📦 How to Run Locally
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/AdrianHaelisson/cnpj-insights-dashboard.git
-    cd cnpj-insights-dashboard
-    ```
-
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-
-3.  **Run the development server:**
-    ```bash
-    npm run dev
-    ```
-
-4.  Open your browser and navigate to `http://localhost:5173`.
-
----
-
-## 🚀 How to Deploy
-
-This project can be easily deployed for free on [Vercel](https://vercel.com/).
-
-1.  **Fork this repository.**
-2.  Go to your Vercel dashboard and click "Add New... > Project".
-3.  Import the forked repository.
-4.  Vercel will automatically detect that it's a Vite project and configure the build settings.
-5.  Click "Deploy" and you're done!
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
+MIT.
